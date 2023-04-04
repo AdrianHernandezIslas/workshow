@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const ItemComponent = (props) => {
   const { data, handlerUpdate } = props;
-  const { title, descripcion, price } = data;
+  const { title,url, descripcion, price } = data;
   const [stock, setStock] = useState(10);
 
   const handlerActionAdd = () => {
@@ -19,6 +19,7 @@ const ItemComponent = (props) => {
       <div className="card-body">
         <p> {title}</p>
         <p>{descripcion}</p>
+        <img src={url} alt="" />
         <p>$ {price}</p>
         <p>{stock}</p>
         <button className="btn btn-primary" onClick={handlerActionAdd}>Agregar</button>

@@ -6,35 +6,28 @@ import NavBarComponent from "./components/NavBarComponent";
 function App() {
   const [count, setCount] = useState(0);
   const [items, setItems] = useState([]);
+  //const BASE_URL ="https://jsonplaceholder.typicode.com/albums/1/photos"
 
   useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([
-          {
-            title: "Camiseta",
-            descripcion: "Negra",
-            price: 20,
-          },
-          {
-            title: "Sudadera",
-            descripcion: "Verde Nike XL",
-            price: 30,
-          },
-          {
-            title: "Pans",
-            descripcion: "Rojo chamuco",
-            price: 100,
-          },
-        ]);
-      }, 5000);
+    console.log("Ejecute el fetch");
+    fetch("https://jsonplaceholder.typicode.com/albums/1/photos").then(response => {
+      return response.json();
+    }).then((data) =>{
+      setItems(data);
+    });
+
+   /* const info = {
+      albumId: 1,
+      title: "Islas coder",
+      url: "https://via.placeholder.com/600/92c952",
+      thumbnailUrl: "https://via.placeholder.com/150/92c952",
+    };
+    fetch("https://jsonplaceholder.typicode.com/photos", {
+      method: "POST",
+      body:JSON.stringify(info),
     })
-      .then((result) => {
-        setItems(result);
-      })
-      .catch((error) => {
-        console.log("ups algo fallo");
-      });
+      .then((response) => response.json())
+      .then((json) => console.log(json));*/
   }, []);
 
   const updateCount = () => {
