@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 const ItemComponent = (props) => {
   const { data, handlerUpdate } = props;
-  const { title,url, descripcion, price } = data;
-  const [stock, setStock] = useState(10);
+  const { title, img, description, price, stock } = data;
+  const [_stock, _setStock] = useState(stock || 0);
 
   const handlerActionAdd = () => {
-    if (stock > 0) {
-      setStock(stock - 1);
+    if (_stock > 0) {
+      _setStock(_stock - 1);
       handlerUpdate();
     } else {
       alert("Tu estas loco o que ?");
@@ -18,11 +18,13 @@ const ItemComponent = (props) => {
     <div className="card m-5">
       <div className="card-body">
         <p> {title}</p>
-        <p>{descripcion}</p>
-        <img src={url} alt="" />
+        <p>{description}</p>
+        <img width={400} height={300} src={img} alt="" />
         <p>$ {price}</p>
-        <p>{stock}</p>
-        <button className="btn btn-primary" onClick={handlerActionAdd}>Agregar</button>
+        <p>{_stock}</p>
+        <button className="btn btn-primary" onClick={handlerActionAdd}>
+          Agregar
+        </button>
       </div>
     </div>
   );
