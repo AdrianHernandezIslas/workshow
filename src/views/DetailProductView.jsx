@@ -1,17 +1,22 @@
-import React, { Fragment } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { Fragment, useContext } from "react";
+import { /*useNavigate,*/ useParams } from "react-router-dom";
 import useFetch from "../utils/useFetch";
+import GeneralContext from "../context/GeneralContext";
 
 const BASE_URL = "https://fakestoreapi.com/products";
 
 const DetailProductView = () => {
   const { idProduct } = useParams();
-  const navigator = useNavigate();
+  const {updateCounter,counter} = useContext(GeneralContext);
+  //const navigator = useNavigate();
 
   const [data] = useFetch(`${BASE_URL}/${idProduct}`);
 
   const addBtnAction = () => {
-    navigator("/about");
+    //alert("soy el evento click del boton");
+    //navigator("/about");
+    updateCounter();
+    console.log(counter);
   };
 
   const { title, image, description, price, category } = data;
