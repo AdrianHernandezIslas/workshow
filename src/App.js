@@ -8,22 +8,30 @@ import { routes } from "./routes";
 import ItemFormView from "./views/ItemFormView";
 import GeneralContext from "./context/GeneralContext";
 import { useState } from "react";
+import DetailCarView from "./views/DetailCarView";
 function App() {
-  const [counter,setCounter] = useState(0);
-  
-  const updateCounter = () => {
-    setCounter(counter+1);
+  const [car, setCar] = useState([]);
+
+  const addToCar = (item) => {
+    setCar([...car,item]);
+  };
+
+  const removeToCar = (item) => {
+    const newArray = car.filter(_item => _item.id !== item.id);
+    setCar(newArray)
   };
 
   return (
-    <GeneralContext.Provider value={{updateCounter,counter}}>
+    <GeneralContext.Provider value={{ addToCar,car,removeToCar }}>
       <BrowserRouter>
         <NavBarComponent />
         <Routes>
           <Route path={routes.root} element={<ProductsView />}></Route>
-          <Route path={routes.aboutView} element={<AboutView />} />
           <Route path="/products/detail/:idProduct" element={<DetailProductView />}></Route>
+          <Route path={routes.aboutView} element={<AboutView />} />
           <Route path="/eventos" element={<ItemFormView />}></Route>
+          <Route path="/products/car" element={<DetailCarView />}></Route>
+          <Route path="/category/:category" element={<ProductsView />}></Route>
         </Routes>
       </BrowserRouter>
     </GeneralContext.Provider>

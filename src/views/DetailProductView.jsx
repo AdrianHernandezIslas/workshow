@@ -7,19 +7,17 @@ const BASE_URL = "https://fakestoreapi.com/products";
 
 const DetailProductView = () => {
   const { idProduct } = useParams();
-  const {updateCounter,counter} = useContext(GeneralContext);
+  const { addToCar } = useContext(GeneralContext);
   //const navigator = useNavigate();
 
   const [data] = useFetch(`${BASE_URL}/${idProduct}`);
+  const { title, image, description, price, category } = data;
 
   const addBtnAction = () => {
-    //alert("soy el evento click del boton");
-    //navigator("/about");
-    updateCounter();
-    console.log(counter);
+    addToCar(data);
+    alert("Added!!");
   };
 
-  const { title, image, description, price, category } = data;
   return (
     <Fragment>
       <div className="row my-5">

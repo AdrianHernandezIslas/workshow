@@ -1,28 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import ListOptionNavBarComponent from "./ListOptionNavBarComponent";
 import { NavLink } from "react-router-dom";
 import useFetch from "../utils/useFetch";
+import GeneralContext from "../context/GeneralContext";
 const BASE_URL = "https://fakestoreapi.com/products/categories";
 /*
   @params props type Array
 */
 const NavBarComponent = (props) => {
   //This line are items
-
+  const { car } = useContext(GeneralContext);
   const [data] = useFetch(BASE_URL);
-  /*const nameOptions = [
-    { name: "Camisas", link: "/products/category/camisas" },
-    { name: "Pantalones", link: "/products/category/patalones" },
-    { name: "Blusas", link: "/products/category/blusas" },
-    { name: "Abrigos", link: "/products/category/abrigos" },
-    { name: "CropTop", link: "/products/category/crop-top" },
-    { name: "Faldas", link: "/products/category/faldas" }
-  ];*/
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-      <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/">
           <img
             width={100}
             height={100}
@@ -45,6 +38,10 @@ const NavBarComponent = (props) => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ListOptionNavBarComponent nameOption={data}></ListOptionNavBarComponent>
         </div>
+        <NavLink to="/products/car">
+          <span>Agregados: </span>
+          {car.length}
+        </NavLink>
       </div>
     </nav>
   );
