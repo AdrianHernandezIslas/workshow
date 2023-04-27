@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 const OptionNavBarComponent = (props) => {
@@ -15,4 +14,4 @@ const OptionNavBarComponent = (props) => {
   );
 };
 
-export default OptionNavBarComponent;
+export default (OptionNavBarComponent);

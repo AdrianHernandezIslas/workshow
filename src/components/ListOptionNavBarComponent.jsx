@@ -1,4 +1,3 @@
-import React from "react";
 import OptionNavBarComponent from "./OptionNavBarComponent";
 
 const ListOptionNavBarComponent = (props) => {

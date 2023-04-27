@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {  useContext } from "react";
 import ListOptionNavBarComponent from "./ListOptionNavBarComponent";
 import { NavLink } from "react-router-dom";
 import useFetch from "../utils/useFetch";
@@ -8,10 +8,8 @@ const BASE_URL = "https://fakestoreapi.com/products/categories";
   @params props type Array
 */
 const NavBarComponent = (props) => {
-  //This line are items
   const { car } = useContext(GeneralContext);
   const [data] = useFetch(BASE_URL);
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -47,4 +45,4 @@ const NavBarComponent = (props) => {
   );
 };
 
-export default NavBarComponent;
+export default (NavBarComponent);

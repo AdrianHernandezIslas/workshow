@@ -7,9 +7,10 @@ const URL_CATEGORY = "category";
 
 const ProductsView = (props) => {
   const { category } = useParams();
-  const final_url = category ? `${BASE_URL}/${URL_CATEGORY}/${category}`: BASE_URL;
+  const final_url = category ? `${BASE_URL}/${URL_CATEGORY}/${category}` : BASE_URL;
   const [data, loading] = useFetch(final_url);
 
+  console.log("ProductsView");
   return (
     <Fragment>
       <div className="container mt-5">
