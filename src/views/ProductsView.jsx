@@ -1,16 +1,28 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import ItemComponent from "../components/ItemComponent";
 import useFetch from "../utils/useFetch";
 import { useParams } from "react-router-dom";
 const BASE_URL = "https://fakestoreapi.com/products";
 const URL_CATEGORY = "category";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const ProductsView = (props) => {
   const { category } = useParams();
   const final_url = category ? `${BASE_URL}/${URL_CATEGORY}/${category}` : BASE_URL;
   const [data, loading] = useFetch(final_url);
 
-  console.log("ProductsView");
+  useEffect(() => {
+    const db = getFirestore();
+    const nameCollection = "items";
+    const documentId = "BpnaXOXqVLDEovdh9Pc8";
+    const biciRef = doc(db, nameCollection, documentId);
+    getDoc(biciRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.data());
+      }
+    });
+  });
+
   return (
     <Fragment>
       <div className="container mt-5">
