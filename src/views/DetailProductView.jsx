@@ -1,16 +1,13 @@
 import React, { Fragment, useContext } from "react";
-import { /*useNavigate,*/ useParams } from "react-router-dom";
-import useFetch from "../utils/useFetch";
+import { useParams } from "react-router-dom";
 import GeneralContext from "../context/GeneralContext";
-
-const BASE_URL = "https://fakestoreapi.com/products";
+import useFirestore from "../utils/useFirestore";
+const nameCollection = "items";
 
 const DetailProductView = () => {
-  const { idProduct } = useParams();
+  const { idProduct: documentId } = useParams();
   const { addToCar } = useContext(GeneralContext);
-  //const navigator = useNavigate();
-
-  const [data] = useFetch(`${BASE_URL}/${idProduct}`);
+  const [data] = useFirestore({ nameCollection, documentId });
   const { title, image, description, price, category } = data;
 
   const addBtnAction = () => {

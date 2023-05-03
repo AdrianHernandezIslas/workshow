@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import useFetch from "../utils/useFetch";
 import GeneralContext from "../context/GeneralContext";
 const BASE_URL = "https://fakestoreapi.com/products/categories";
+const nameCollection = "categories";
 /*
   @params props type Array
 */
