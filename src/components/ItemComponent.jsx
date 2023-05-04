@@ -9,7 +9,6 @@ const ItemComponent = (props) => {
   const [_stock, _setStock] = useState(stock || 0);
   const { removeToCar } = useContext(GeneralContext);
 
-  console.log("render ItemComponent");
   const handlerActionAdd = () => {
     if (_stock > 0) {
       _setStock(_stock - 1);

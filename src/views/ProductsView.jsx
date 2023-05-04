@@ -1,18 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import ItemComponent from "../components/ItemComponent";
-//import useFetch from "../utils/useFetch";
-//import { useParams } from "react-router-dom";
 import useFirestore from "../utils/useFirestore";
-//const BASE_URL = "https://fakestoreapi.com/products";
-//const URL_CATEGORY = "category";
-
+import { useParams } from "react-router-dom";
 const nameCollection = "items";
-//const documentId = "NVo8Nhmk5hmNjFKbH2ub";
 
 const ProductsView = (props) => {
-  //const { category } = useParams();
-  //const final_url = category ? `${BASE_URL}/${URL_CATEGORY}/${category}` : BASE_URL;
-  const [data, loading] = useFirestore({nameCollection});
+  const { category } = useParams();
+  
+  const options = useMemo(() => {
+    const _optionwithFilters =  { nameCollection, filters: { where: ["category", "==", category] } };
+    const _optionWithOutFilters = { nameCollection };
+    return category ?_optionwithFilters : _optionWithOutFilters ;
+  }, [category]);
+
+  const [data, loading] = useFirestore(options);
 
   return (
     <Fragment>

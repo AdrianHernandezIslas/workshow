@@ -1,16 +1,21 @@
-import React, {  useContext } from "react";
+import React, {  useContext, useMemo } from "react";
 import ListOptionNavBarComponent from "./ListOptionNavBarComponent";
 import { NavLink } from "react-router-dom";
-import useFetch from "../utils/useFetch";
 import GeneralContext from "../context/GeneralContext";
-const BASE_URL = "https://fakestoreapi.com/products/categories";
+import useFirestore from "../utils/useFirestore";
 const nameCollection = "categories";
 /*
   @params props type Array
 */
 const NavBarComponent = (props) => {
   const { car } = useContext(GeneralContext);
-  const [data] = useFetch(BASE_URL);
+  const [data] = useFirestore({nameCollection});
+
+  const dataProcess = useMemo(() => {
+    const categoriesObject = data.length !== 0 ? data[0]:[];
+    return "category" in categoriesObject ? categoriesObject.category:[];
+  },[data]);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -35,7 +40,7 @@ const NavBarComponent = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <ListOptionNavBarComponent nameOption={data}></ListOptionNavBarComponent>
+          <ListOptionNavBarComponent nameOption={dataProcess}></ListOptionNavBarComponent>
         </div>
         <NavLink to="/products/car">
           <span>Agregados: </span>
