@@ -13,7 +13,8 @@ const filtersFuntions = {
   limit,
 };
 
-const useFirestore = ({ nameCollection = "", documentId = 0, filters = {} }) => {
+const useFirestore = ({ nameCollection = "", documentId, filters }) => {
+  
   const [state, setState] = useState(initialState);
 
   const listFilters = useMemo(() => {

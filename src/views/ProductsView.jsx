@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment, memo, useMemo } from "react";
 import ItemComponent from "../components/ItemComponent";
 import useFirestore from "../utils/useFirestore";
 import { useParams } from "react-router-dom";
@@ -6,7 +6,7 @@ const nameCollection = "items";
 
 const ProductsView = (props) => {
   const { category } = useParams();
-  
+
   const options = useMemo(() => {
     const _optionwithFilters =  { nameCollection, filters: { where: ["category", "==", category] } };
     const _optionWithOutFilters = { nameCollection };
@@ -15,6 +15,7 @@ const ProductsView = (props) => {
 
   const [data, loading] = useFirestore(options);
 
+  
   return (
     <Fragment>
       <div className="container mt-5">
@@ -25,7 +26,7 @@ const ProductsView = (props) => {
             data.map((item, index) => {
               return (
                 <div key={index} className="col">
-                  <ItemComponent data={item} />
+                  <ItemComponent showInfo data={item}  />
                 </div>
               );
             })
@@ -36,4 +37,4 @@ const ProductsView = (props) => {
   );
 };
 
-export default ProductsView;
+export default memo(ProductsView);

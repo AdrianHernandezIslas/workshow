@@ -21,8 +21,12 @@ function App() {
     setCar(newArray)
   };
 
+  const cleanCar = () => {
+    setCar([]);
+  };
+
   return (
-    <GeneralContext.Provider value={{ addToCar,car,removeToCar }}>
+    <GeneralContext.Provider value={{ addToCar,car,removeToCar,cleanCar }}>
       <BrowserRouter>
         <NavBarComponent />
         <Routes>

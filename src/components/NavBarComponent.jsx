@@ -1,4 +1,4 @@
-import React, {  useContext, useMemo } from "react";
+import React, { memo, useContext, useMemo } from "react";
 import ListOptionNavBarComponent from "./ListOptionNavBarComponent";
 import { NavLink } from "react-router-dom";
 import GeneralContext from "../context/GeneralContext";
@@ -9,12 +9,12 @@ const nameCollection = "categories";
 */
 const NavBarComponent = (props) => {
   const { car } = useContext(GeneralContext);
-  const [data] = useFirestore({nameCollection});
+  const [data] = useFirestore({ nameCollection });
 
   const dataProcess = useMemo(() => {
-    const categoriesObject = data.length !== 0 ? data[0]:[];
-    return "category" in categoriesObject ? categoriesObject.category:[];
-  },[data]);
+    const categoriesObject = data.length !== 0 ? data[0] : [];
+    return "category" in categoriesObject ? categoriesObject.category : [];
+  }, [data]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,13 +42,17 @@ const NavBarComponent = (props) => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ListOptionNavBarComponent nameOption={dataProcess}></ListOptionNavBarComponent>
         </div>
-        <NavLink to="/products/car">
-          <span>Agregados: </span>
-          {car.length}
-        </NavLink>
+        {car.length !== 0 ? (
+          <NavLink to="/products/car">
+            <span>Agregados: </span>
+            {car.length}
+          </NavLink>
+        ) : (
+          ""
+        )}
       </div>
     </nav>
   );
 };
 
-export default (NavBarComponent);
+export default memo(NavBarComponent);
