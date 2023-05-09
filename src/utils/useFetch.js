@@ -1,40 +1,33 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
+
+const initialState = {
+  response:{},
+  error:{},
+  data:[],
+  loading:false
+};
 
 const useFetch = (url) => {
-  const [response, setResponse] = useState({});
-  const [error, setError] = useState({});
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [state, setState] = useState(initialState);
 
-  useEffect(() => {
-    /* (async (urlComplement = "") => {
-      const urlGet = `${url}${urlComplement}`;
-      setLoading(true);
-      const response = await fetch(urlGet);//
-      setResponse(response);//
-      const datas = await response.json();//
-      setLoading(false);
-      setData(datas);
-      console.log("test");
-    })();*/
-    setLoading(true);
+  useEffect(()=>{
+    
     fetch(url)
-      .then((response) => {
-        setResponse(response);
-        return response.json();
-      })
-      .then((infoJson) => {
-        //console.log("soy  datas",infoJson);
-        setData(infoJson);
-        setLoading(false);
-        //data = infoJson;
-      }).catch((_error) => {
-        setError(_error);
-      });
-  }, [url]);
+    .then((response) => {
+      //setState({...state,response});
+      return response.json();
+    })
+    .then((infoJson) => {
+      //console.log("soy  datas",infoJson);
+      setState({...state,data:infoJson,loading:false});
+      //data = infoJson;
+    })
+    .catch((_error) => {
+      setState(_error);
+    });
+  },[url]);
 
-
-  return [data,loading,response,error];
+  return [state.data, state.loading, state.response, state.error];
 };
 
 export default useFetch;
